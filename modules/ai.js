@@ -1,12 +1,32 @@
-export async function askAI(endpoint,payload){
+import { fetchAI } from '../aiEngine.js';
 
-  const response = await fetch(endpoint,{
-    method:'POST',
-    headers:{
-      'Content-Type':'application/json'
-    },
-    body:JSON.stringify(payload)
-  });
+export function renderAI(app){
+  app.innerHTML = `
+    <div class="card">
+      <h2>AI Doubt Solver</h2>
 
-  return await response.json();
+      <textarea id="doubt" rows="6"></textarea>
+
+      <button class="primary" id="solveBtn">
+        Solve Doubt
+      </button>
+    </div>
+
+    <div id="response"></div>
+  `;
+
+  solveBtn.onclick = async ()=>{
+    response.innerHTML=`<div class="card">AI thinking...</div>`;
+
+    const data = await fetchAI('solve-doubt',{
+      doubt: doubt.value
+    });
+
+    response.innerHTML=`
+      <div class="card">
+        <h2>AI Explanation</h2>
+        <p>${data.answer}</p>
+      </div>
+    `;
+  }
 }
