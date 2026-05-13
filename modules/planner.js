@@ -1,35 +1,38 @@
-export function initPlanner(){
+import { fetchAI } from '../aiEngine.js';
 
-  document.getElementById('generatePlan').addEventListener('click',async()=>{
+export function renderPlanner(app){
+  app.innerHTML = `
+    <div class="card">
+      <h2>AI Study Planner</h2>
 
-    const exam = document.getElementById('examName').value;
-    const days = document.getElementById('daysLeft').value;
-    const weak = document.getElementById('weakSubjects').value;
-    const hours = document.getElementById('studyHours').value;
+      <input id="exam" placeholder="Exam" />
+      <input id="days" placeholder="Days Left" type="number" />
+      <input id="weak" placeholder="Weak Subjects" />
+      <input id="hours" placeholder="Study Hours/Day" />
 
-    const result = document.getElementById('planResult');
+      <button class="primary" id="generatePlan">
+        Generate Plan
+      </button>
+    </div>
 
-    result.innerHTML='Generating AI roadmap...';
+    <div id="plan"></div>
+  `;
 
-    const response = await fetch('/api/generate-plan',{
-      method:'POST',
-      headers:{
-        'Content-Type':'application/json'
-      },
-      body:JSON.stringify({
-        exam,
-        days,
-        weak,
-        hours
-      })
+  generatePlan.onclick = async ()=>{
+    plan.innerHTML = `<div class="card">Generating AI roadmap...</div>`;
+
+    const data = await fetchAI('generate-plan',{
+      exam: document.getElementById('exam').value,
+      days: document.getElementById('days').value,
+      weak: document.getElementById('weak').value,
+      hours: document.getElementById('hours').value
     });
 
-    const data = await response.json();
-
-    result.innerHTML=`
-      <div class="quiz-card">
+    plan.innerHTML = `
+      <div class="card">
+        <h2>Your AI Strategy</h2>
         <pre>${data.plan}</pre>
       </div>
     `;
-  });
+  }
 }
