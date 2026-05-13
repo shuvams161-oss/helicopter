@@ -1,94 +1,301 @@
 :root {
+  --bg: #070b14;
+  --glass: rgba(255,255,255,0.08);
+  --border: rgba(255,255,255,0.15);
+  --accent: #00ffd5;
+  --purple: #8f5cff;
+  --text: #ffffff;
 }
 
-.progress {
-  height: 14px;
-  border-radius: 100px;
-  background: rgba(255,255,255,0.1);
-  overflow: hidden;
-  margin-top: 10px;
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+  font-family:Inter,sans-serif;
 }
 
-.progress-fill {
-  height: 100%;
-  background: linear-gradient(90deg, var(--accent), var(--purple));
-  transition: .4s;
+body{
+  background:
+    radial-gradient(circle at top,#11182b,#05070d);
+  color:white;
+  display:flex;
+  min-height:100vh;
+  overflow-x:hidden;
 }
 
-.grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit,minmax(240px,1fr));
-  gap: 20px;
+/* BACKGROUND */
+
+.bg{
+  position:fixed;
+  inset:0;
+
+  background:
+    radial-gradient(
+      circle at 20% 20%,
+      rgba(0,255,213,0.15),
+      transparent 30%
+    ),
+
+    radial-gradient(
+      circle at 80% 50%,
+      rgba(143,92,255,0.2),
+      transparent 30%
+    );
+
+  z-index:-1;
+
+  animation:pulse 12s infinite alternate;
 }
 
-input, select, textarea {
-  width: 100%;
-  margin-top: 10px;
-  background: rgba(255,255,255,0.06);
-  color: white;
-  border: 1px solid rgba(255,255,255,0.1);
-  border-radius: 14px;
-  padding: 14px;
-}
-
-button.primary {
-  margin-top: 14px;
-  background: linear-gradient(90deg,var(--accent),var(--purple));
-  border: none;
-  padding: 14px 20px;
-  border-radius: 14px;
-  color: black;
-  font-weight: bold;
-  cursor: pointer;
-}
-
-.quiz-option {
-  padding: 12px;
-  border-radius: 12px;
-  background: rgba(255,255,255,0.06);
-  margin-top: 10px;
-  cursor: pointer;
-}
-
-.quiz-option:hover {
-  background: rgba(255,255,255,0.12);
-}
-
-@media(max-width:900px){
-  body{
-    flex-direction:column;
+@keyframes pulse{
+  from{
+    transform:scale(1);
   }
 
-  .sidebar{
-    width:100%;
-    flex-direction:row;
-    overflow:auto;
+  to{
+    transform:scale(1.08);
+  }
+}
+
+/* SIDEBAR */
+
+.sidebar{
+  width:240px;
+
+  backdrop-filter:blur(18px);
+
+  background:rgba(255,255,255,0.05);
+
+  border-right:1px solid var(--border);
+
+  padding:24px;
+
+  display:flex;
+  flex-direction:column;
+  gap:14px;
+}
+
+.sidebar h1{
+  margin-bottom:20px;
+  font-size:1.8rem;
+}
+
+.sidebar button{
+  background:var(--glass);
+
+  color:white;
+
+  border:1px solid var(--border);
+
+  padding:14px;
+
+  border-radius:16px;
+
+  cursor:pointer;
+
+  transition:.25s;
+}
+
+.sidebar button:hover{
+  transform:translateY(-3px);
+
+  box-shadow:
+    0 0 20px rgba(0,255,213,.3);
+}
+
+/* MAIN APP */
+
+#app{
+  flex:1;
+  padding:24px;
+}
+
+/* CARD */
+
+.card{
+  background:rgba(255,255,255,0.06);
+
+  backdrop-filter:blur(14px);
+
+  border:1px solid rgba(255,255,255,0.1);
+
+  border-radius:24px;
+
+  padding:24px;
+
+  margin-bottom:20px;
+
+  animation:fade .4s ease;
+}
+
+@keyframes fade{
+  from{
+    opacity:0;
+    transform:translateY(20px);
   }
 
-  .flashcard-card{
+  to{
+    opacity:1;
+    transform:translateY(0);
+  }
+}
+
+/* GRID */
+
+.grid{
+  display:grid;
+
+  grid-template-columns:
+    repeat(auto-fit,minmax(240px,1fr));
+
+  gap:20px;
+}
+
+/* INPUTS */
+
+input,
+select,
+textarea{
+  width:100%;
+
+  margin-top:10px;
+
+  background:rgba(255,255,255,0.06);
+
+  color:white;
+
+  border:1px solid rgba(255,255,255,0.1);
+
+  border-radius:14px;
+
+  padding:14px;
+
+  outline:none;
+}
+
+textarea{
+  resize:vertical;
+}
+
+/* BUTTON */
+
+button.primary{
+  margin-top:14px;
+
+  background:
+    linear-gradient(
+      90deg,
+      var(--accent),
+      var(--purple)
+    );
+
+  border:none;
+
+  padding:14px 20px;
+
+  border-radius:14px;
+
+  color:black;
+
+  font-weight:bold;
+
+  cursor:pointer;
+
+  transition:.3s;
+}
+
+button.primary:hover{
+  transform:translateY(-2px);
+
+  box-shadow:
+    0 0 18px rgba(0,255,213,0.25);
+}
+
+/* PROGRESS BAR */
+
+.progress{
+  height:14px;
+
+  border-radius:100px;
+
+  background:rgba(255,255,255,0.1);
+
+  overflow:hidden;
+
+  margin-top:10px;
+}
+
+.progress-fill{
+  height:100%;
+
+  background:
+    linear-gradient(
+      90deg,
+      var(--accent),
+      var(--purple)
+    );
+
+  transition:.4s;
+}
+
+/* QUIZ OPTIONS */
+
+.quiz-option{
+  padding:12px;
+
+  border-radius:12px;
+
+  background:rgba(255,255,255,0.06);
+
+  margin-top:10px;
+
+  cursor:pointer;
+
+  transition:.2s;
+}
+
+.quiz-option:hover{
+  background:rgba(255,255,255,0.12);
+}
+
+/* FLASHCARDS */
+
+.flashcard-card{
   text-align:center;
 }
 
 .flashcard-inner{
   margin-top:20px;
+
   min-height:220px;
+
   border-radius:24px;
+
   display:flex;
+
   align-items:center;
+
   justify-content:center;
+
   background:rgba(255,255,255,0.06);
+
   border:1px solid rgba(255,255,255,0.1);
+
   transition:.4s;
+
   padding:20px;
+
   cursor:pointer;
 }
 
 .flashcard-inner.flipped{
-  background:linear-gradient(
-    135deg,
-    rgba(0,255,213,0.2),
-    rgba(143,92,255,0.2)
-  );
+  background:
+    linear-gradient(
+      135deg,
+      rgba(0,255,213,0.2),
+      rgba(143,92,255,0.2)
+    );
+
   transform:scale(1.02);
 }
 
@@ -98,27 +305,87 @@ button.primary {
   font-weight:700;
 }
 
-  .mission{
+/* MISSIONS */
+
+.mission{
   display:flex;
+
   justify-content:space-between;
+
   align-items:center;
+
   gap:20px;
+
   padding:18px;
+
   margin-top:16px;
+
   border-radius:18px;
+
   background:rgba(255,255,255,0.05);
+
   border:1px solid rgba(255,255,255,0.08);
+
   transition:.3s;
 }
 
 .mission:hover{
   transform:translateY(-3px);
-  box-shadow:0 0 18px rgba(0,255,213,0.15);
+
+  box-shadow:
+    0 0 18px rgba(0,255,213,0.15);
 }
 
 .mission.done{
   opacity:.7;
-  border-color:rgba(0,255,213,0.4);
+
+  border-color:
+    rgba(0,255,213,0.4);
 }
-  
+
+/* SCROLLBAR */
+
+::-webkit-scrollbar{
+  width:8px;
+}
+
+::-webkit-scrollbar-thumb{
+  background:
+    linear-gradient(
+      var(--accent),
+      var(--purple)
+    );
+
+  border-radius:20px;
+}
+
+/* RESPONSIVE */
+
+@media(max-width:900px){
+
+  body{
+    flex-direction:column;
+  }
+
+  .sidebar{
+    width:100%;
+
+    flex-direction:row;
+
+    overflow:auto;
+  }
+
+  #app{
+    padding:16px;
+  }
+
+  .card{
+    padding:18px;
+  }
+
+  .mission{
+    flex-direction:column;
+    align-items:flex-start;
+  }
+
 }
