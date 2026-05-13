@@ -1,30 +1,28 @@
-import { initDashboard } from './modules/dashboard.js';
-import { initQuiz } from './modules/quiz.js';
-import { initPlanner } from './modules/planner.js';
-import { initPYQ } from './modules/pyq.js';
-import { initAnalytics } from './modules/analytics.js';
+import { renderDashboard } from './modules/dashboard.js';
+import { renderQuiz } from './modules/quiz.js';
+import { renderPlanner } from './modules/planner.js';
+import { renderAnalytics } from './modules/analytics.js';
+import { renderPYQ } from './modules/pyq.js';
+import { renderAI } from './modules/ai.js';
 
-const pages = document.querySelectorAll('.page');
-const buttons = document.querySelectorAll('.nav-btn');
+const app = document.getElementById('app');
 
-buttons.forEach(btn=>{
-  btn.addEventListener('click',()=>{
+const pages = {
+  dashboard: renderDashboard,
+  quiz: renderQuiz,
+  planner: renderPlanner,
+  analytics: renderAnalytics,
+  pyq: renderPYQ,
+  doubts: renderAI
+};
 
-    buttons.forEach(b=>b.classList.remove('active'));
-    btn.classList.add('active');
+function load(page){
+  app.innerHTML='';
+  pages[page](app);
+}
 
-    const target = btn.dataset.section;
+load('dashboard');
 
-    pages.forEach(page=>{
-      page.classList.remove('active-page');
-    });
-
-    document.getElementById(target).classList.add('active-page');
-  });
+[...document.querySelectorAll('[data-page]')].forEach(btn=>{
+  btn.onclick=()=>load(btn.dataset.page);
 });
-
-initDashboard();
-initQuiz();
-initPlanner();
-initPYQ();
-initAnalytics();
