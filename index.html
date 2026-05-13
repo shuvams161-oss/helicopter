@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>NovaMind AI</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+
+<div class="particles"></div>
+
+<div class="app-layout">
+
+  <aside class="sidebar glass">
+
+    <div class="logo-wrap">
+      <h1>NovaMind AI</h1>
+      <p>Study Like A Legend 🚀</p>
+    </div>
+
+    <nav>
+      <button class="nav-btn active" data-section="dashboard">Dashboard</button>
+      <button class="nav-btn" data-section="study">Study Hub</button>
+      <button class="nav-btn" data-section="quiz">AI Quiz</button>
+      <button class="nav-btn" data-section="planner">AI Planner</button>
+      <button class="nav-btn" data-section="pyq">PYQs</button>
+      <button class="nav-btn" data-section="analytics">Analytics</button>
+      <button class="nav-btn" data-section="social">Social</button>
+    </nav>
+
+    <div class="xp-box glass-dark">
+      <h3>LEVEL 12</h3>
+
+      <div class="progress">
+        <div class="progress-fill" style="width:70%"></div>
+      </div>
+
+      <span>7200 / 10000 XP</span>
+    </div>
+
+  </aside>
+
+  <main class="main-content">
+
+    <header class="topbar glass">
+
+      <div>
+        <h2>Welcome back, Tubas 👋</h2>
+        <p>Consistency beats motivation.</p>
+      </div>
+
+      <div class="streak-pill">
+        🔥 18 Day Streak
+      </div>
+
+    </header>
+
+    <section id="dashboard" class="page active-page">
+
+      <div class="hero-card glass premium-gradient">
+
+        <div>
+          <h1>Crush Your Exams ⚡</h1>
+          <p>AI-powered productivity for toppers.</p>
+
+          <button class="primary-btn">
+            Start Focus Session
+          </button>
+        </div>
+
+        <div class="countdown-card glass-dark">
+          <h3>JEE Main Countdown</h3>
+          <h2 id="countdown">92 Days</h2>
+        </div>
+
+      </div>
+
+      <div class="grid cards-grid">
+
+        <div class="glass card stat-card">
+          <h3>Today's XP</h3>
+          <h1>+240</h1>
+          <p>You're outperforming 84% students.</p>
+        </div>
+
+        <div class="glass card stat-card">
+          <h3>Study Time</h3>
+          <h1>5.2h</h1>
+          <p>Deep work unlocked.</p>
+        </div>
+
+        <div class="glass card stat-card">
+          <h3>Accuracy</h3>
+          <h1>87%</h1>
+          <p>Massive improvement this week.</p>
+        </div>
+
+        <div class="glass card stat-card">
+          <h3>Rank</h3>
+          <h1>#214</h1>
+          <p>Almost top 200 🔥</p>
+        </div>
+
+      </div>
+
+      <div class="dashboard-grid">
+
+        <div class="glass large-card">
+
+          <h2>Daily Missions</h2>
+
+          <div class="mission">
+            <span>Complete 30 Physics MCQs</span>
+
+            <div class="mission-bar">
+              <div style="width:80%"></div>
+            </div>
+          </div>
+
+          <div class="mission">
+            <span>Revise Organic Chemistry</span>
+
+            <div class="mission-bar">
+              <div style="width:55%"></div>
+            </div>
+          </div>
+
+          <div class="mission">
+            <span>1 Pomodoro Session</span>
+
+            <div class="mission-bar">
+              <div style="width:100%"></div>
+            </div>
+          </div>
+
+        </div>
+
+        <div class="glass large-card">
+
+          <h2>Pomodoro Timer</h2>
+
+          <div class="timer" id="timer">
+            25:00
+          </div>
+
+          <div class="timer-controls">
+            <button id="startTimer">Start</button>
+            <button id="resetTimer">Reset</button>
+          </div>
+
+        </div>
+
+      </div>
+
+    </section>
+
+    <section id="study" class="page">
+
+      <div class="glass section-card">
+
+        <h2>Study Hub 📘</h2>
+
+        <div class="notes-grid">
+
+          <div class="note-card glass-dark">
+            <h3>Physics Formula Sheet</h3>
+            <p>Electrostatics formulas and shortcuts.</p>
+          </div>
+
+          <div class="note-card glass-dark">
+            <h3>Biology Flashcards</h3>
+            <p>Human Physiology revision cards.</p>
+          </div>
+
+          <div class="note-card glass-dark">
+            <h3>Maths Quick Revision</h3>
+            <p>Calculus rapid revision pack.</p>
+          </div>
+
+        </div>
+
+      </div>
+
+    </section>
+
+    <section id="quiz" class="page">
+
+      <div class="glass section-card">
+
+        <h2>AI Quiz Generator 🤖</h2>
+
+        <div class="form-grid">
+
+          <select id="quizSubject">
+            <option>Physics</option>
+            <option>Chemistry</option>
+            <option>Maths</option>
+            <option>Biology</option>
+          </select>
+
+          <input type="text" id="quizChapter" placeholder="Chapter Name">
+
+          <select id="quizDifficulty">
+            <option>Easy</option>
+            <option>Medium</option>
+            <option>Hard</option>
+          </select>
+
+          <input type="number" id="quizCount" value="5">
+
+        </div>
+
+        <button id="generateQuiz" class="primary-btn">
+          Generate Quiz
+        </button>
+
+        <div id="quizContainer"></div>
+
+      </div>
+
+    </section>
+
+    <section id="planner" class="page">
+
+      <div class="glass section-card">
+
+        <h2>AI Study Planner 🧠</h2>
+
+        <div class="form-grid">
+          <input id="examName" placeholder="Exam Name">
+          <input id="daysLeft" placeholder="Days Left">
+          <input id="weakSubjects" placeholder="Weak Subjects">
+          <input id="studyHours" placeholder="Study Hours/Day">
+        </div>
+
+        <button id="generatePlan" class="primary-btn">
+          Generate Plan
+        </button>
+
+        <div id="planResult"></div>
+
+      </div>
+
+    </section>
+
+    <section id="pyq" class="page">
+
+      <div class="glass section-card">
+
+        <h2>Previous Year Questions 📚</h2>
+
+        <div id="pyqContainer"></div>
+
+      </div>
+
+    </section>
+
+    <section id="analytics" class="page">
+
+      <div class="glass section-card">
+
+        <h2>Performance Analytics 📈</h2>
+
+        <div class="analytics-grid">
+
+          <div class="analytics-card glass-dark">
+            <h3>Weakest Topic</h3>
+            <h1>Electrochemistry</h1>
+          </div>
+
+          <div class="analytics-card glass-dark">
+            <h3>Most Improved</h3>
+            <h1>Calculus</h1>
+          </div>
+
+          <div class="analytics-card glass-dark">
+            <h3>Total Questions</h3>
+            <h1>482</h1>
+          </div>
+
+        </div>
+
+      </div>
+
+    </section>
+
+    <section id="social" class="page">
+
+      <div class="glass section-card">
+
+        <h2>Student Community 🌍</h2>
+
+        <div class="feed-post glass-dark">
+          <h4>@AnonymousTopper</h4>
+          <p>Finished 12 hours today. Brain = melted 🫠</p>
+        </div>
+
+        <div class="feed-post glass-dark">
+          <h4>@PhysicsNinja</h4>
+          <p>Organic chemistry finally makes sense 😭</p>
+        </div>
+
+      </div>
+
+    </section>
+
+  </main>
+
+</div>
+
+<script type="module" src="app.js"></script>
+
+</body>
+</html>
