@@ -1,21 +1,37 @@
-import { pyqs } from '../pyqData.js';
+import { fetchAI } from '../aiEngine.js';
 
-export function initPYQ(){
+export function renderPYQ(app){
+  app.innerHTML = `
+    <div class="card">
+      <h2>AI PYQ Generator</h2>
 
-  const container = document.getElementById('pyqContainer');
+      <input id="examType" placeholder="JEE / NEET / ICSE" />
+      <input id="subject" placeholder="Subject" />
+      <input id="chapter" placeholder="Chapter" />
 
-  pyqs.forEach(q=>{
+      <button class="primary" id="generatePYQ">
+        Generate PYQs
+      </button>
+    </div>
 
-    const div = document.createElement('div');
-    div.className='quiz-card';
+    <div id="pyqResults"></div>
+  `;
 
-    div.innerHTML=`
-      <h3>${q.subject} • ${q.chapter}</h3>
-      <p>${q.question}</p>
-      <p><strong>Answer:</strong> ${q.answer}</p>
-      <button class="primary-btn">Bookmark</button>
-    `;
+  generatePYQ.onclick = async ()=>{
+    pyqResults.innerHTML=`<div class="card">Generating...</div>`;
 
-    container.appendChild(div);
-  });
+    const data = await fetchAI('generate-pyq',{
+      exam: examType.value,
+      subject: subject.value,
+      chapter: chapter.value
+    });
+
+    pyqResults.innerHTML = data.questions.map(q=>`
+      <div class="card">
+        <h3>${q.question}</h3>
+        <p><b>Answer:</b> ${q.answer}</p>
+        <p>${q.explanation}</p>
+      </div>
+    `).join('');
+  }
 }
