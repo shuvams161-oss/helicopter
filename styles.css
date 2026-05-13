@@ -64,4 +64,37 @@ button.primary {
     flex-direction:row;
     overflow:auto;
   }
+
+  .flashcard-card{
+  text-align:center;
+}
+
+.flashcard-inner{
+  margin-top:20px;
+  min-height:220px;
+  border-radius:24px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  background:rgba(255,255,255,0.06);
+  border:1px solid rgba(255,255,255,0.1);
+  transition:.4s;
+  padding:20px;
+  cursor:pointer;
+}
+
+.flashcard-inner.flipped{
+  background:linear-gradient(
+    135deg,
+    rgba(0,255,213,0.2),
+    rgba(143,92,255,0.2)
+  );
+  transform:scale(1.02);
+}
+
+.flashcard-front,
+.flashcard-back{
+  font-size:1.3rem;
+  font-weight:700;
+}
 }
