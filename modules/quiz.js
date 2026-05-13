@@ -1,52 +1,54 @@
-export function initQuiz(){
+import { fetchAI } from '../aiEngine.js';
+    quizContainer.innerHTML = data.questions.map((q,i)=>`
+      <div class="card">
+        <h3>${i+1}. ${q.question}</h3>
 
-  document.getElementById('generateQuiz').addEventListener('click',async()=>{
+        ${q.options.map(opt=>`
+          <div class="quiz-option">
+            ${opt}
+          </div>
+        `).join('')}
 
-    const subject = document.getElementById('quizSubject').value;
-    const chapter = document.getElementById('quizChapter').value;
-    const difficulty = document.getElementById('quizDifficulty').value;
-    const count = document.getElementById('quizCount').value;
+        <button class="primary answerBtn" data-answer="${q.answer}">
+          Reveal Answer
+        </button>
 
-    const container = document.getElementById('quizContainer');
+        <div class="answer"></div>
+      </div>
+    `).join('');
 
-    container.innerHTML = '<p>Generating AI quiz...</p>';
+    document.querySelectorAll('.answerBtn').forEach((btn,index)=>{
+      btn.onclick=()=>{
+        const ans = data.questions[index];
 
-    try{
-
-      const response = await fetch('/api/generate-quiz',{
-        method:'POST',
-        headers:{
-          'Content-Type':'application/json'
-        },
-        body:JSON.stringify({
-          subject,
-          chapter,
-          difficulty,
-          count
-        })
-      });
-
-      const data = await response.json();
-
-      container.innerHTML='';
-
-      data.questions.forEach((q,index)=>{
-
-        const div = document.createElement('div');
-        div.className='quiz-card';
-
-        div.innerHTML=`
-          <h3>Q${index+1}. ${q.question}</h3>
-          ${q.options.map(opt=>`<div class="option">${opt}</div>`).join('')}
-          <p><strong>Answer:</strong> ${q.answer}</p>
-          <p>${q.explanation}</p>
+        btn.nextElementSibling.innerHTML = `
+          <p><b>Answer:</b> ${ans.answer}</p>
+          <p>${ans.explanation}</p>
         `;
 
-        container.appendChild(div);
-      });
+        score += 20;
 
-    }catch(err){
-      container.innerHTML='Failed to generate quiz';
-    }
-  });
+        const user = getUser();
+        user.quizzesCompleted++;
+        user.quizHistory.push({
+          subject,
+          chapter,
+          score
+        });
+
+        saveUser(user);
+
+        gainXP(50);
+
+        addActivity(`Completed ${subject} quiz`);
+      }
+    });
+  }
+
+  const examEl = document.getElementById('exam');
+  const subjectEl = document.getElementById('subject');
+  const chapterEl = document.getElementById('chapter');
+  const difficultyEl = document.getElementById('difficulty');
+  const countEl = document.getElementById('count');
+  const quizContainer = document.getElementById('quizContainer');
 }
