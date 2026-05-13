@@ -1,0 +1,75 @@
+*{
+}
+
+.section-card{
+  padding:28px;
+}
+
+.notes-grid,
+.analytics-grid,
+.form-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+  gap:18px;
+  margin-top:20px;
+}
+
+.note-card,
+.analytics-card,
+.feed-post{
+  padding:22px;
+}
+
+.page{
+  display:none;
+}
+
+.active-page{
+  display:block;
+  animation:fade .4s ease;
+}
+
+@keyframes fade{
+  from{opacity:0;transform:translateY(10px)}
+  to{opacity:1;transform:translateY(0)}
+}
+
+.quiz-card{
+  margin-top:20px;
+  padding:20px;
+  border-radius:20px;
+  background:#111827;
+}
+
+.option{
+  margin-top:10px;
+  padding:12px;
+  border-radius:12px;
+  background:#1f2937;
+  cursor:pointer;
+}
+
+.option:hover{
+  background:#374151;
+}
+
+@media(max-width:900px){
+  .app-layout{
+    flex-direction:column;
+  }
+
+  .sidebar{
+    width:100%;
+    height:auto;
+    position:relative;
+  }
+
+  .dashboard-grid{
+    grid-template-columns:1fr;
+  }
+
+  .hero-card{
+    flex-direction:column;
+    gap:20px;
+  }
+}
