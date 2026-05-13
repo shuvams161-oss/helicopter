@@ -1,43 +1,49 @@
-export function initDashboard(){
+import { getUser } from '../storage.js';
 
-  let time = 1500;
-  let timerRunning = false;
-  let interval;
+export function renderDashboard(app){
+  const user = getUser();
 
-  const timer = document.getElementById('timer');
+  const required = user.level * 200;
+  const percent = (user.xp / required) * 100;
 
-  function updateTimer(){
+  app.innerHTML = `
+    <div class="grid">
+      <div class="card">
+        <h2>⚡ Level ${user.level}</h2>
+        <p>${user.xp}/${required} XP</p>
+        <div class="progress">
+          <div class="progress-fill" style="width:${percent}%"></div>
+        </div>
+      </div>
 
-    const minutes = Math.floor(time/60);
-    const seconds = time%60;
+      <div class="card">
+        <h2>🔥 ${user.streak} Day Streak</h2>
+        <p>Consistency is power.</p>
+      </div>
 
-    timer.innerText = `${String(minutes).padStart(2,'0')}:${String(seconds).padStart(2,'0')}`;
-  }
+      <div class="card">
+        <h2>📚 Study Hours</h2>
+        <p>${user.studyHours.toFixed(1)} hrs</p>
+      </div>
 
-  document.getElementById('startTimer').onclick = ()=>{
+      <div class="card">
+        <h2>🧠 Productivity</h2>
+        <p>${user.productivity}%</p>
+      </div>
+    </div>
 
-    if(timerRunning) return;
+    <div class="card">
+      <h2>Recent Activity</h2>
+      ${user.activity.map(a=>`<p>• ${a.text}</p>`).join('')}
+    </div>
 
-    timerRunning = true;
-
-    interval = setInterval(()=>{
-      time--;
-      updateTimer();
-
-      if(time<=0){
-        clearInterval(interval);
-        alert('Pomodoro completed 🔥');
-      }
-
-    },1000);
-  };
-
-  document.getElementById('resetTimer').onclick = ()=>{
-    clearInterval(interval);
-    time = 1500;
-    timerRunning = false;
-    updateTimer();
-  };
-
-  updateTimer();
+    <div class="card">
+      <h2>AI Insights</h2>
+      <p>
+        ${user.weakSubjects.length
+          ? `Focus more on ${user.weakSubjects.join(', ')}`
+          : 'You are building strong consistency 🚀'}
+      </p>
+    </div>
+  `;
 }
