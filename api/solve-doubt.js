@@ -1,37 +1,28 @@
 export default async function handler(req,res){
+  const response = await fetch('https://api.x.ai/v1/chat/completions',{
+    method:'POST',
+    headers:{
+      'Content-Type':'application/json',
+      'Authorization': `Bearer ${process.env.GROK_API_KEY}`
+    },
+    body: JSON.stringify({
+      model:'grok-3-mini',
+      messages:[
+        {
+          role:'system',
+          content:'Explain like an elite exam mentor.'
+        },
+        {
+          role:'user',
+          content:req.body.doubt
+        }
+      ]
+    })
+  });
 
-  try{
+  const data = await response.json();
 
-    const {doubt} = req.body;
-
-    const response = await fetch('https://api.x.ai/v1/chat/completions',{
-      method:'POST',
-      headers:{
-        'Authorization':`Bearer ${process.env.GROK_API_KEY}`,
-        'Content-Type':'application/json'
-      },
-      body:JSON.stringify({
-        model:'grok-3-mini',
-        messages:[
-          {
-            role:'system',
-            content:'Explain doubts clearly for students.'
-          },
-          {
-            role:'user',
-            content:doubt
-          }
-        ]
-      })
-    });
-
-    const data = await response.json();
-
-    res.status(200).json({
-      answer:data.choices[0].message.content
-    });
-
-  }catch(error){
-    res.status(500).json({error:error.message});
-  }
+  res.status(200).json({
+    answer:data.choices[0].message.content
+  });
 }
